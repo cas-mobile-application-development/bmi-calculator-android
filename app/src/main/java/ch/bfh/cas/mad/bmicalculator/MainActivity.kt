@@ -1,5 +1,6 @@
 package ch.bfh.cas.mad.bmicalculator
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -11,7 +12,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editTextHeightInCm: EditText
     private lateinit var editTextWeightInKg: EditText
     private lateinit var buttonCalculate: Button
-    private lateinit var textViewOutput: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         editTextHeightInCm = findViewById(R.id.edittext_height_in_cm)
         editTextWeightInKg = findViewById(R.id.edittext_weight_in_kg)
         buttonCalculate = findViewById(R.id.button_calculate)
-        textViewOutput = findViewById(R.id.textview_output)
     }
 
     override fun onResume() {
@@ -37,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         val weightInKg = parseInt(editTextWeightInKg.text.toString())
         val heightInMeters = heightInCm / 100.0
         val bmi = weightInKg / (heightInMeters * heightInMeters)
-        textViewOutput.text = bmi.toString()
+        val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra("ch.bfh.cas.mad.bmicalculator.bmi", bmi)
+        startActivity(intent)
     }
 }
