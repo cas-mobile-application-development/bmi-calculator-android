@@ -12,6 +12,7 @@ class ResultActivity : AppCompatActivity() {
         fun start(context: Context, bmi: Double) {
             val intent = Intent(context, ResultActivity::class.java)
             intent.putExtra(bmiKey, bmi)
+            context.startActivity(intent)
         }
 
         fun Intent.getBmi(): Double? =
