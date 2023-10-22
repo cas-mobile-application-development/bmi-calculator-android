@@ -1,10 +1,8 @@
 package ch.bfh.cas.mad.bmicalculator
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.lang.Integer.parseInt
 
@@ -36,8 +34,6 @@ class MainActivity : AppCompatActivity() {
         val weightInKg = parseInt(editTextWeightInKg.text.toString())
         val heightInMeters = heightInCm / 100.0
         val bmi = weightInKg / (heightInMeters * heightInMeters)
-        val intent = Intent(this, ResultActivity::class.java)
-        intent.putExtra("ch.bfh.cas.mad.bmicalculator.bmi", bmi)
-        startActivity(intent)
+        ResultActivity.start(context = this, bmi = bmi)
     }
 }
