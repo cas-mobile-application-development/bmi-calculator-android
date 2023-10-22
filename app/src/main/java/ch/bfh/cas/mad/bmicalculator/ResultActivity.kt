@@ -42,8 +42,7 @@ class ResultActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         buttonBack.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 
