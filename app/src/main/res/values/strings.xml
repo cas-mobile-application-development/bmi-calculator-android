@@ -3,4 +3,5 @@
     <string name="height">Grösse in cm</string>
     <string name="weight">Gewicht in kg</string>
     <string name="calculate">Berechnen</string>
+    <string name="back">Zurück</string>
 </resources>
