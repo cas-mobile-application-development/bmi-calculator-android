@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="interpretation_bmi">
+        <item>Alter &lt;19 &#8211;&gt; Keine Aussage möglich</item>
+        <item>Alter 19 &#8211; 24 &#8211;&gt; Normalgewicht (BMI 19 &#8211; 24)</item>
+        <item>Alter 25 &#8211; 34 &#8211;&gt; Normalgewicht (BMI 20 &#8211; 25)</item>
+        <item>Alter 35 &#8211; 44 &#8211;&gt; Normalgewicht (BMI 21 &#8211; 26)</item>
+        <item>Alter 45 &#8211; 54 &#8211;&gt; Normalgewicht (BMI 22 &#8211; 27)</item>
+        <item>Alter 55 &#8211; 64 &#8211;&gt; Normalgewicht (BMI 23 &#8211; 28)</item>
+        <item>Alter &gt; 65 &#8211;&gt; Normalgewicht (BMI 24 &#8211; 29)</item>
+    </string-array>
+</resources>
