@@ -4,4 +4,6 @@
     <string name="weight">Gewicht in kg</string>
     <string name="calculate">Berechnen</string>
     <string name="back">Zurück</string>
+    <string name="profile">Profil</string>
+    <string name="app_title">BMI-Rechner</string>
 </resources>
