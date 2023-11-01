@@ -5,9 +5,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.snackbar.Snackbar
 import java.lang.Integer.parseInt
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var coordinatorLayoutMain: CoordinatorLayout
     private lateinit var editTextHeightInCm: EditText
     private lateinit var editTextWeightInKg: EditText
     private lateinit var buttonCalculate: Button
@@ -16,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        coordinatorLayoutMain = findViewById(R.id.coordinator_layout_main)
         editTextHeightInCm = findViewById(R.id.edittext_height_in_cm)
         editTextWeightInKg = findViewById(R.id.edittext_weight_in_kg)
         buttonCalculate = findViewById(R.id.button_calculate)
@@ -33,10 +37,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculateBmi() {
-        val heightInCm = parseInt(editTextHeightInCm.text.toString())
-        val weightInKg = parseInt(editTextWeightInKg.text.toString())
-        val heightInMeters = heightInCm / 100.0
-        val bmi = weightInKg / (heightInMeters * heightInMeters)
-        textViewOutput.text = bmi.toString()
+        try {
+            val heightInCm = parseInt(editTextHeightInCm.text.toString())
+            val weightInKg = parseInt(editTextWeightInKg.text.toString())
+            val heightInMeters = heightInCm / 100.0
+            val bmi = weightInKg / (heightInMeters * heightInMeters)
+            textViewOutput.text = bmi.toString()
+        } catch (e: Exception) {
+            Snackbar
+                .make(coordinatorLayoutMain, R.string.error_bmi, Snackbar.LENGTH_LONG)
+                .show()
+        }
     }
 }
