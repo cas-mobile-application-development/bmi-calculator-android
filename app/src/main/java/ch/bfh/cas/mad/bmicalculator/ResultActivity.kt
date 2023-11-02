@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -44,7 +45,7 @@ class ResultActivity : AppCompatActivity() {
 
         val interpretations = resources.getStringArray(R.array.interpretation_bmi)
         val adapter = BmiInterpretationsAdapter(data = interpretations.toList())
-        recyclerViewInterpretations.layoutManager = LinearLayoutManager(this)
+        recyclerViewInterpretations.layoutManager = GridLayoutManager(this, 3)
         recyclerViewInterpretations.adapter = adapter
     }
 
