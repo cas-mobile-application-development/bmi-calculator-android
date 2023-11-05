@@ -6,14 +6,18 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import java.lang.Integer.parseInt
 
 class MainActivity : AppCompatActivity() {
     private lateinit var editTextHeightInCm: EditText
     private lateinit var editTextWeightInKg: EditText
     private lateinit var buttonCalculate: Button
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val viewModelProvider = ViewModelProvider(this)
+        viewModel = viewModelProvider.get(MainViewModel::class.java)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar_main))
@@ -21,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         editTextHeightInCm = findViewById(R.id.edittext_height_in_cm)
         editTextWeightInKg = findViewById(R.id.edittext_weight_in_kg)
         buttonCalculate = findViewById(R.id.button_calculate)
+
     }
 
     override fun onResume() {
@@ -49,8 +54,7 @@ class MainActivity : AppCompatActivity() {
     private fun calculateBmi() {
         val heightInCm = parseInt(editTextHeightInCm.text.toString())
         val weightInKg = parseInt(editTextWeightInKg.text.toString())
-        val heightInMeters = heightInCm / 100.0
-        val bmi = weightInKg / (heightInMeters * heightInMeters)
-        ResultActivity.start(context = this, bmi = bmi)
+
+        ResultActivity.start(context = this, bmi = viewModel.calculateBmi(heightInCm, weightInKg))
     }
 }
