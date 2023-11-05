@@ -32,18 +32,20 @@ class ResultActivity : AppCompatActivity() {
     private lateinit var buttonBack: Button
     private lateinit var textViewOutput: TextView
     private lateinit var recyclerViewInterpretations: RecyclerView
+    private lateinit var bmiInterpretationsRepository: BmiInterpretationsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
+        bmiInterpretationsRepository = BmiInterpretationsRepository(context = this)
         buttonBack = findViewById(R.id.button_back)
         textViewOutput = findViewById(R.id.textview_bmi_output)
         recyclerViewInterpretations = findViewById(R.id.recyclerview_interpretations)
         val bmi = intent.getBmi() ?: throw Exception("No BMI provided")
         textViewOutput.text = bmi.toString()
 
-        val interpretations = resources.getStringArray(R.array.interpretation_bmi)
-        val adapter = BmiInterpretationsAdapter(data = interpretations.toList())
+        val interpretations = bmiInterpretationsRepository.all()
+        val adapter = BmiInterpretationsAdapter(data = interpretations)
         recyclerViewInterpretations.layoutManager = LinearLayoutManager(this)
         recyclerViewInterpretations.adapter = adapter
     }
