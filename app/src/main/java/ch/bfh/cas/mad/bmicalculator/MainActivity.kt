@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         val viewModelProvider = ViewModelProvider(this)
         viewModel = viewModelProvider.get(MainViewModel::class.java)
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar_main))
         title = getString(R.string.app_title)
