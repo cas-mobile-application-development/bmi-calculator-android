@@ -38,7 +38,10 @@ class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
-        val viewModelProvider = ViewModelProvider(this)
+        val viewModelProvider = ViewModelProvider(
+            this,
+            ResultViewModelFactory(BmiInterpretationsRepository(applicationContext))
+        )
         viewModel = viewModelProvider.get(ResultViewModel::class.java)
         buttonBack = findViewById(R.id.button_back)
         textViewOutput = findViewById(R.id.textview_bmi_output)

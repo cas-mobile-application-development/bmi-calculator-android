@@ -1,12 +1,10 @@
 package ch.bfh.cas.mad.bmicalculator
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 
-class ResultViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val bmiInterpretationsRepository = BmiInterpretationsRepository(context = application)
-
+class ResultViewModel(
+    private val bmiInterpretationsRepository: BmiInterpretationsRepository
+) : ViewModel() {
     fun getBmiInterpretaions(): List<String> {
         return bmiInterpretationsRepository.all()
     }
