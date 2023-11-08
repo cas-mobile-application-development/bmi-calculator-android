@@ -40,7 +40,7 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
         val viewModelProvider = ViewModelProvider(
             this,
-            ResultViewModelFactory(BmiInterpretationsRepository(applicationContext))
+            ResultViewModelFactory(BmiInterpretationsRepository())
         )
         viewModel = viewModelProvider.get(ResultViewModel::class.java)
         buttonBack = findViewById(R.id.button_back)
@@ -49,10 +49,14 @@ class ResultActivity : AppCompatActivity() {
         val bmi = intent.getBmi() ?: throw Exception("No BMI provided")
         textViewOutput.text = bmi.toString()
 
-        val interpretations = viewModel.getBmiInterpretaions()
-        val adapter = BmiInterpretationsAdapter(data = interpretations)
         recyclerViewInterpretations.layoutManager = LinearLayoutManager(this)
-        recyclerViewInterpretations.adapter = adapter
+        Thread {
+            val interpretations = viewModel.getBmiInterpretaions()
+            recyclerViewInterpretations.post {
+                val adapter = BmiInterpretationsAdapter(data = interpretations)
+                recyclerViewInterpretations.adapter = adapter
+            }
+        }.start()
     }
 
     override fun onResume() {
