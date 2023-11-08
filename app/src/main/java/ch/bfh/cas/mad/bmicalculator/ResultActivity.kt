@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class ResultActivity : AppCompatActivity() {
@@ -53,10 +54,12 @@ class ResultActivity : AppCompatActivity() {
 
         recyclerViewInterpretations.layoutManager = LinearLayoutManager(this)
         lifecycleScope.launch {
-            val interpretations = viewModel.getBmiInterpretaions()
-            val adapter = BmiInterpretationsAdapter(data = interpretations)
-            recyclerViewInterpretations.adapter = adapter
+            viewModel.interpretations.collectLatest {interpretations ->
+                val adapter = BmiInterpretationsAdapter(data = interpretations)
+                recyclerViewInterpretations.adapter = adapter
+            }
         }
+        viewModel.getBmiInterpretaions()
     }
 
     override fun onResume() {
