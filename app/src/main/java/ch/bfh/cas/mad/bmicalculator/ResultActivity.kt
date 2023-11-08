@@ -7,8 +7,10 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 
 class ResultActivity : AppCompatActivity() {
     companion object {
@@ -50,13 +52,11 @@ class ResultActivity : AppCompatActivity() {
         textViewOutput.text = bmi.toString()
 
         recyclerViewInterpretations.layoutManager = LinearLayoutManager(this)
-        Thread {
+        lifecycleScope.launch {
             val interpretations = viewModel.getBmiInterpretaions()
-            recyclerViewInterpretations.post {
-                val adapter = BmiInterpretationsAdapter(data = interpretations)
-                recyclerViewInterpretations.adapter = adapter
-            }
-        }.start()
+            val adapter = BmiInterpretationsAdapter(data = interpretations)
+            recyclerViewInterpretations.adapter = adapter
+        }
     }
 
     override fun onResume() {
