@@ -11,11 +11,7 @@ import kotlinx.coroutines.runBlocking
 object BmiInterpretationsClient {
 
     fun getAllBmiInterpretationsBlocking(): List<String> = runBlocking {
-        createClient().use { client ->
-            client
-                .get("https://mocki.io/v1/70e0bd6a-4163-4692-9fd3-31cac0cba85b")
-                .body()
-        }
+        getAllBmiInterpretations()
     }
 
     suspend fun getAllBmiInterpretations(): List<String> =
@@ -24,6 +20,7 @@ object BmiInterpretationsClient {
                 .get("https://mocki.io/v1/70e0bd6a-4163-4692-9fd3-31cac0cba85b")
                 .body()
         }
+
 
     private fun createClient(): HttpClient =
         HttpClient(CIO) {
