@@ -43,7 +43,11 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
         val viewModelProvider = ViewModelProvider(
             this,
-            ResultViewModelFactory(BmiInterpretationsRepository())
+            ResultViewModelFactory(
+                BmiInterpretationsRepository(
+                    BmiDatabaseProvider.get(this).getBmiInterpretationsDao()
+                )
+            )
         )
         viewModel = viewModelProvider.get(ResultViewModel::class.java)
         buttonBack = findViewById(R.id.button_back)
@@ -54,7 +58,7 @@ class ResultActivity : AppCompatActivity() {
 
         recyclerViewInterpretations.layoutManager = LinearLayoutManager(this)
         lifecycleScope.launch {
-            viewModel.interpretations.collectLatest {interpretations ->
+            viewModel.interpretations.collectLatest { interpretations ->
                 val adapter = BmiInterpretationsAdapter(data = interpretations)
                 recyclerViewInterpretations.adapter = adapter
             }
