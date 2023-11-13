@@ -2,7 +2,11 @@ package ch.bfh.cas.mad.bmicalculator
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.widget.ImageView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +25,10 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var editTextUsername: EditText
     private lateinit var buttonSave: Button
+    private lateinit var buttonPicture: Button
+    private lateinit var imageViewProfilePicture: ImageView
     private lateinit var settings: Settings
+    private lateinit var picturePreview: ActivityResultLauncher<Void?>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +36,12 @@ class ProfileActivity : AppCompatActivity() {
         editTextUsername = findViewById(R.id.edittext_username)
         buttonSave = findViewById(R.id.button_save)
         settings = Settings(context = this)
+        buttonPicture = findViewById(R.id.button_picture)
+        imageViewProfilePicture = findViewById(R.id.imageview_profile_picture)
+        picturePreview =
+            registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { preview: Bitmap? ->
+                imageViewProfilePicture.setImageBitmap(preview)
+            }
     }
 
     override fun onStart() {
@@ -49,10 +62,14 @@ class ProfileActivity : AppCompatActivity() {
                 buttonSave.postDelayed({ buttonSave.text = getString(R.string.save)}, 3000)
             }
         }
+        buttonPicture.setOnClickListener {
+            picturePreview.launch(null)
+        }
     }
 
     override fun onPause() {
         super.onPause()
         buttonSave.setOnClickListener(null)
+        buttonPicture.setOnClickListener(null)
     }
 }
