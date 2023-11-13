@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.collectLatest
@@ -58,9 +60,11 @@ class ResultActivity : AppCompatActivity() {
 
         recyclerViewInterpretations.layoutManager = LinearLayoutManager(this)
         lifecycleScope.launch {
-            viewModel.interpretations.collectLatest { interpretations ->
-                val adapter = BmiInterpretationsAdapter(data = interpretations)
-                recyclerViewInterpretations.adapter = adapter
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.interpretations.collectLatest { interpretations ->
+                    val adapter = BmiInterpretationsAdapter(data = interpretations)
+                    recyclerViewInterpretations.adapter = adapter
+                }
             }
         }
         viewModel.getBmiInterpretaions()
