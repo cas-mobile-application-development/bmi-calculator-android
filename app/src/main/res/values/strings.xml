@@ -6,4 +6,7 @@
     <string name="back">Zurück</string>
     <string name="profile">Profil</string>
     <string name="app_title">BMI-Rechner</string>
+    <string name="username">Benutzername</string>
+    <string name="save">Speichern</string>
+    <string name="saved">Gespeichert</string>
 </resources>
