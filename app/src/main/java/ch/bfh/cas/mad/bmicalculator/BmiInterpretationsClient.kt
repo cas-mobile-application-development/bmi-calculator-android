@@ -17,7 +17,7 @@ class BmiInterpretationsClient(
     }
 
     suspend fun getAllBmiInterpretations(): List<String> =
-        networkAwareClient.executeWhenOnline {
+        networkAwareClient.executeWhenWifi {
             createClient().use { client ->
                 client
                     .get("https://mocki.io/v1/70e0bd6a-4163-4692-9fd3-31cac0cba85b")
