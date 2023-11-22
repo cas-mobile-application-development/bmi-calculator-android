@@ -5,6 +5,7 @@ import kotlinx.coroutines.withContext
 import java.util.UUID
 
 class BmiInterpretationsRepository(
+    private val bmiInterpretationsClient: BmiInterpretationsClient,
     private val bmiInterpretationsDao: BmiInterpretationsDao
 ) {
     suspend fun all(): List<String> = withContext(Dispatchers.IO) {
@@ -12,7 +13,7 @@ class BmiInterpretationsRepository(
         if (storedInterpretations.isNotEmpty()) {
             return@withContext storedInterpretations
         }
-        val fetchedInterpretations = BmiInterpretationsClient.getAllBmiInterpretations()
+        val fetchedInterpretations = bmiInterpretationsClient.getAllBmiInterpretations()
         storeFetchedInterpretations(fetchedInterpretations)
         return@withContext fetchedInterpretations
     }

@@ -47,6 +47,7 @@ class ResultActivity : AppCompatActivity() {
             this,
             ResultViewModelFactory(
                 BmiInterpretationsRepository(
+                    BmiInterpretationsClient(NetworkAwareClient(context = this)),
                     BmiDatabaseProvider.get(this).getBmiInterpretationsDao()
                 )
             )
